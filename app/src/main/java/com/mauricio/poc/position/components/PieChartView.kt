@@ -28,8 +28,7 @@ internal class PieChartView @JvmOverloads constructor(
         isDrawHoleEnabled = true
         isRotationEnabled = false
         legend.isEnabled = false
-        holeRadius =
-            HOLE_RADIUS
+        holeRadius = HOLE_RADIUS
     }
 
     private fun createEntries(): Map<PieEntry, Int> {
