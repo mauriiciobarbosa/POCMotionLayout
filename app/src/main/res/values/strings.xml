@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">POCPositionMotionLayout</string>
-    <string name="all_easy_account">My Account</string>
-    <string name="home_see_my_investments">See My Investments</string>
-    <string name="all_my_investments">My Investments</string>
-    <string name="all_my_patrimony">My patrimony</string>
+    <string name="all_easy_account">Conta Easynvest</string>
+    <string name="home_see_my_investments">Ver meus investimentos</string>
+    <string name="all_my_investments">Meus investimentos</string>
+    <string name="all_my_patrimony">Meu patrimônio</string>
 </resources>

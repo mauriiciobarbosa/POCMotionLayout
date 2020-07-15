@@ -22,6 +22,8 @@ import com.mauricio.poc.position.extensions.hideMoney
 import com.mauricio.poc.position.extensions.visible
 import kotlinx.android.synthetic.main.layout_position_view2_start.view.*
 
+private const val ANIMATION_DURATION = 500L
+
 internal class PositionView2 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -65,7 +67,7 @@ internal class PositionView2 @JvmOverloads constructor(
 
     private fun createTransition(rotationValues: Pair<Float, Float>): TransitionSet {
         return TransitionSet().apply {
-            duration = 1000
+            duration = ANIMATION_DURATION
             interpolator = AccelerateDecelerateInterpolator()
             addTransition(ChangeBounds())
             pathMotion = ArcMotion()
