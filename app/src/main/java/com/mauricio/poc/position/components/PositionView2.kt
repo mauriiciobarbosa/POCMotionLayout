@@ -35,6 +35,7 @@ internal class PositionView2 @JvmOverloads constructor(
     private var isAbleToShowMoney = true
     private var isExpanded = false
     private var animationListener: ((Transition) -> Unit)? = null
+    private var pieChartView: PieChartView? = null
 
     init {
         inflate(context, R.layout.layout_position_view2_start, this)
@@ -76,6 +77,13 @@ internal class PositionView2 @JvmOverloads constructor(
                 ObjectAnimator.ofFloat(
                     imageViewExpandable, View.ROTATION, rotationValues.first, rotationValues.second
                 ).apply {
+                    addUpdateListener { valueAnimator ->
+                        if (isExpanded.not() && valueAnimator.animatedFraction > 0.9) {
+                            pieChartView?.showCenterText()
+                        } else {
+                            pieChartView?.hideCenterText()
+                        }
+                    }
                     duration = it.duration
                 }.start()
                 imageViewExpandable.isEnabled = false
@@ -112,7 +120,7 @@ internal class PositionView2 @JvmOverloads constructor(
     }
 
     private fun setupPatrimonyChart(investmentTypes: List<PieChartView.Value>) {
-        val pieChartView = PieChartView(
+        pieChartView = PieChartView(
             context, investmentTypes
         ).build { valueSelected ->
             val selectedInvestment = if (valueSelected != null) {
@@ -122,6 +130,8 @@ internal class PositionView2 @JvmOverloads constructor(
             }
             textViewInvestmentSelectedLabel.animateTextChange(selectedInvestment.first)
             textViewInvestmentSelectedValue.animateTextChange(prepareMoneyValue(selectedInvestment.second))
+        }.also {
+            if (isExpanded) it.showCenterText()
         }
 
         frameLayoutPatrimonyGraph.apply {

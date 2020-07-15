@@ -3,6 +3,7 @@ package com.mauricio.poc.position.components
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import androidx.core.content.res.ResourcesCompat
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
@@ -11,6 +12,8 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.mauricio.poc.position.R
+import com.mauricio.poc.position.extensions.toPercentFormat
 
 internal class PieChartView @JvmOverloads constructor(
     context: Context,
@@ -20,13 +23,15 @@ internal class PieChartView @JvmOverloads constructor(
 ) : PieChart(context, attrs, defStyle), OnChartValueSelectedListener {
 
     private var onValueSelected: ((Value?) -> Unit)? = null
+    private var selectedValue: Value? = null
+    private var shouldShowCenterText = false
 
     fun build(onValueSelected: ((Value?) -> Unit)? = null): PieChartView {
         this.onValueSelected = onValueSelected
         configureChart()
         setValuesIntoChart(createEntries())
-        showAnimation()
         setOnChartValueSelectedListener(this)
+        showAnimation()
         return this
     }
 
@@ -71,6 +76,12 @@ internal class PieChartView @JvmOverloads constructor(
         data = PieData(pieDataSet)
     }
 
+    private fun configureCenterText() {
+        setCenterTextSize(SIZE_FONT_CENTER)
+        setCenterTextTypeface(ResourcesCompat.getFont(context, R.font.rational_display_medium))
+        updateCenterText()
+    }
+
     private fun showAnimation() {
         animateY(ANIMATION_DURATION, Easing.EaseInOutQuad)
     }
@@ -78,11 +89,33 @@ internal class PieChartView @JvmOverloads constructor(
     override fun onNothingSelected() {
         highlightValues(null)
         onValueSelected?.invoke(null)
+        selectedValue = null
+        updateCenterText()
+    }
+
+    private fun updateCenterText() {
+        if (shouldShowCenterText) {
+            val value = selectedValue?.percentage ?: GRAPH_FULL_PERCENTAGE
+            centerText = value.toDouble().toPercentFormat(removeZeros = true)
+        }
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val pieChartValue = e?.data as? Value
         onValueSelected?.invoke(pieChartValue)
+        selectedValue = pieChartValue
+        updateCenterText()
+    }
+
+    fun showCenterText() {
+        shouldShowCenterText = true
+        configureCenterText()
+        updateCenterText()
+    }
+
+    fun hideCenterText() {
+        shouldShowCenterText = false
+        centerText = ""
     }
 
     data class Value(
@@ -93,6 +126,8 @@ internal class PieChartView @JvmOverloads constructor(
     )
 
     companion object {
+        private const val GRAPH_FULL_PERCENTAGE = 100.0f
+        private const val SIZE_FONT_CENTER = 18f
         private const val ANIMATION_DURATION = 1400
         private const val DISTANCE_FROM_CENTER = 5F
         private const val HOLE_RADIUS = 60F

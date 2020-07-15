@@ -134,7 +134,7 @@
         android:text="@string/home_see_my_investments"
         app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
         app:layout_constraintEnd_toStartOf="@id/endGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/textViewInvestmentSelectedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInvestmentSelectedValue"
         app:layout_constraintVertical_bias="1" />
 
     <androidx.constraintlayout.widget.Group
