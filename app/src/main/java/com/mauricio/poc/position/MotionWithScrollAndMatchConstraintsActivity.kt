@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mauricio.poc.position.data.PatrimonyRepository
 import kotlinx.android.synthetic.main.activity_motion_with_scroll.*
 
-class MotionWithScrollActivity : AppCompatActivity() {
+class MotionWithScrollAndMatchConstraintsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_motion_with_scroll)
+        setContentView(R.layout.activity_motion_with_scroll_and_match_constraints)
 
         setupPatrimonyView()
     }

@@ -20,7 +20,7 @@
     <View
         android:id="@+id/profitabilityView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="500dp"
         android:layout_marginTop="@dimen/medium_margin"
         android:background="@color/sunrise"
         app:layout_constraintStart_toStartOf="parent"

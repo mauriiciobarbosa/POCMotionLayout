@@ -20,5 +20,8 @@ class MainActivity : AppCompatActivity() {
         motionWithScroll.setOnClickListener {
             startActivity(Intent(this, MotionWithScrollActivity::class.java))
         }
+        motionWithScrollAndMatchConstraints.setOnClickListener {
+            startActivity(Intent(this, MotionWithScrollAndMatchConstraintsActivity::class.java))
+        }
     }
 }
