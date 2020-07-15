@@ -65,10 +65,6 @@ internal class PositionView @JvmOverloads constructor(
                 AbsListView.LayoutParams.MATCH_PARENT,
                 AbsListView.LayoutParams.MATCH_PARENT
             )
-
-            setOnClickListener {
-                pieChartView.onChatSelected()
-            }
         }
     }
 }

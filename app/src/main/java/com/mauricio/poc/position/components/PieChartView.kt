@@ -5,21 +5,28 @@ import android.graphics.Color
 import android.util.AttributeSet
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 
 internal class PieChartView @JvmOverloads constructor(
     context: Context,
     private val values: List<Value>,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
-) : PieChart(context, attrs, defStyle) {
+) : PieChart(context, attrs, defStyle), OnChartValueSelectedListener {
 
-    fun build(): PieChartView {
+    private var onValueSelected: ((Value?) -> Unit)? = null
+
+    fun build(onValueSelected: ((Value?) -> Unit)? = null): PieChartView {
+        this.onValueSelected = onValueSelected
         configureChart()
         setValuesIntoChart(createEntries())
         showAnimation()
+        setOnChartValueSelectedListener(this)
         return this
     }
 
@@ -68,8 +75,14 @@ internal class PieChartView @JvmOverloads constructor(
         animateY(ANIMATION_DURATION, Easing.EaseInOutQuad)
     }
 
-    fun onChatSelected() {
+    override fun onNothingSelected() {
         highlightValues(null)
+        onValueSelected?.invoke(null)
+    }
+
+    override fun onValueSelected(e: Entry?, h: Highlight?) {
+        val pieChartValue = e?.data as? Value
+        onValueSelected?.invoke(pieChartValue)
     }
 
     data class Value(

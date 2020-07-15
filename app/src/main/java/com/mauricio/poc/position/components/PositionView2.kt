@@ -19,6 +19,7 @@ import com.mauricio.poc.position.R
 import com.mauricio.poc.position.data.PatrimonyViewData
 import com.mauricio.poc.position.extensions.animateTextChange
 import com.mauricio.poc.position.extensions.hideMoney
+import com.mauricio.poc.position.extensions.moneyFormat
 import com.mauricio.poc.position.extensions.visible
 import kotlinx.android.synthetic.main.layout_position_view2_start.view.*
 
@@ -102,6 +103,8 @@ internal class PositionView2 @JvmOverloads constructor(
         textViewPatrimonyValue.animateTextChange(prepareMoneyValue(amountPatrimony))
         textViewMyInvestmentsValue.animateTextChange(prepareMoneyValue(amountInvestments))
         textViewEasyAccountValue.animateTextChange(prepareMoneyValue(amountAccount))
+        textViewInvestmentSelectedLabel.text = context.getString(R.string.label_total_invested)
+        textViewInvestmentSelectedValue.text = prepareMoneyValue(amountInvestments)
     }
 
     private fun prepareMoneyValue(moneyValue: String): String {
@@ -110,9 +113,16 @@ internal class PositionView2 @JvmOverloads constructor(
 
     private fun setupPatrimonyChart(investmentTypes: List<PieChartView.Value>) {
         val pieChartView = PieChartView(
-            context,
-            investmentTypes
-        ).build()
+            context, investmentTypes
+        ).build { valueSelected ->
+            val selectedInvestment = if (valueSelected != null) {
+                valueSelected.description to valueSelected.value.moneyFormat
+            } else {
+                context.getString(R.string.label_total_invested) to (data?.amountInvestments ?: "")
+            }
+            textViewInvestmentSelectedLabel.animateTextChange(selectedInvestment.first)
+            textViewInvestmentSelectedValue.animateTextChange(prepareMoneyValue(selectedInvestment.second))
+        }
 
         frameLayoutPatrimonyGraph.apply {
             removeAllViews()

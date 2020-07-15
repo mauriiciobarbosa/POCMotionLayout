@@ -45,6 +45,29 @@
         app:layout_constraintTop_toBottomOf="@id/textViewPatrimonyValue"
         tools:background="@color/sunrise" />
 
+    <TextView
+        android:id="@+id/textViewInvestmentSelectedLabel"
+        style="@style/FontLight.Caption"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/small_margin"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:text="@string/label_total_invested"
+        app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayoutPatrimonyGraph" />
+
+    <TextView
+        android:id="@+id/textViewInvestmentSelectedValue"
+        style="@style/FontMedium.Paragraph1"
+        android:layout_width="0dp"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:text="@string/label_total_invested"
+        app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInvestmentSelectedLabel" />
+
     <ImageView
         android:id="@+id/imageViewMyInvestmentsIcon"
         android:layout_width="@dimen/icon_small_size"

@@ -4,4 +4,5 @@
     <string name="home_see_my_investments">Ver meus investimentos</string>
     <string name="all_my_investments">Meus investimentos</string>
     <string name="all_my_patrimony">Meu patrimônio</string>
+    <string name="label_total_invested">Total Investido</string>
 </resources>
