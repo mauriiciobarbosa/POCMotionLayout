@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="sunrise">#FFBB00</color>
+    <color name="dawn">#87027B</color>
+    <color name="awaken">#4E0250</color>
+    <color name="black">#322828</color>
+    <color name="light_grey">#D8D8D8</color>
+    <color name="light_dawn">#B130A6</color>
+</resources>

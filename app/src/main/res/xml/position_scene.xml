@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Transition
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="1000">
+
+        <OnClick
+            app:clickAction="toggle"
+            app:targetId="@+id/imageViewExpandable" />
+
+        <KeyFrameSet>
+            <KeyPosition
+                app:framePosition="50"
+                app:keyPositionType="deltaRelative"
+                app:motionTarget="@+id/frameLayoutPatrimonyGraph"
+                app:percentX="0" />
+
+            <KeyAttribute
+                android:scaleX="1"
+                android:scaleY="1"
+                app:framePosition="60"
+                app:motionTarget="@+id/frameLayoutPatrimonyGraph" />
+
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@id/imageViewExpandable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rotation="0"
+            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/topGuideline" />
+        <Constraint
+            android:id="@+id/frameLayoutPatrimonyGraph"
+            android:layout_width="@dimen/home_chart_size"
+            android:layout_height="@dimen/home_chart_size"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintStart_toEndOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/textViewPatrimonyValue" />
+        <Constraint
+            android:id="@+id/imageViewMyInvestmentsIcon"
+            android:layout_width="@dimen/icon_small_size"
+            android:layout_height="@dimen/icon_small_size"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintStart_toEndOf="@+id/frameLayoutPatrimonyGraph"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPatrimonyValue" />
+        <Constraint
+            android:id="@+id/imageViewEasyAccountIcon"
+            android:layout_width="@dimen/icon_small_size"
+            android:layout_height="@dimen/icon_small_size"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            app:layout_constraintStart_toEndOf="@+id/frameLayoutPatrimonyGraph"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMyInvestmentsValue" />
+        <Constraint
+            android:id="@+id/textViewMyInvestmentsLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+            app:layout_constraintEnd_toStartOf="@id/endGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEasyAccountValue"
+            app:layout_constraintVertical_bias="1" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/imageViewExpandable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rotation="-180"
+            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/topGuideline" />
+        <Constraint
+            android:id="@+id/frameLayoutPatrimonyGraph"
+            android:layout_width="@dimen/home_chart_size"
+            android:layout_height="@dimen/home_chart_size"
+            android:layout_marginTop="@dimen/big_margin"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+            app:layout_constraintStart_toEndOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/textViewEasyAccountValue" />
+        <Constraint
+            android:id="@+id/imageViewMyInvestmentsIcon"
+            android:layout_width="@dimen/icon_small_size"
+            android:layout_height="@dimen/icon_small_size"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintStart_toEndOf="@+id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPatrimonyValue" />
+        <Constraint
+            android:id="@+id/imageViewEasyAccountIcon"
+            android:layout_width="@dimen/icon_small_size"
+            android:layout_height="@dimen/icon_small_size"
+            android:layout_marginTop="@dimen/small_margin"
+            app:layout_constraintStart_toEndOf="@+id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMyInvestmentsValue" />
+        <Constraint
+            android:id="@+id/textViewMyInvestmentsLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+            app:layout_constraintEnd_toStartOf="@id/endGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayoutPatrimonyGraph"
+            app:layout_constraintVertical_bias="1" />
+    </ConstraintSet>
+</MotionScene>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base Fonts - Default Color Black -->
+    <style name="FontLight">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <style name="FontMedium">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <!-- subtitle - Font Medium / Font 16sp / Line Height 24sp / linespacing 8sp -->
+    <style name="FontMedium.Subtitle">
+        <item name="android:minHeight">@dimen/text_big_line_spacing</item>
+        <item name="android:textSize">@dimen/general_big_text_size</item>
+        <item name="android:lineSpacingExtra">@dimen/medium_linespacing</item>
+    </style>
+
+    <!-- Paragraph 1 - Font Medium / Font 16sp / Line Height 24sp / linespacing 8sp -->
+    <style name="FontMedium.Paragraph1">
+        <item name="android:minHeight">@dimen/text_big_line_spacing</item>
+        <item name="android:textSize">@dimen/general_big_text_size</item>
+        <item name="android:lineSpacingExtra">@dimen/medium_linespacing</item>
+    </style>
+
+    <!-- Caption - Font Light / Font 12sp / Line Height 16sp / linespacing 4sp -->
+    <style name="FontLight.Caption">
+        <item name="android:minHeight">@dimen/caption_line_spacing</item>
+        <item name="android:textSize">@dimen/general_small_text_size</item>
+        <item name="android:lineSpacingExtra">@dimen/smallest_linespacing</item>
+    </style>
+
+    <!-- Link - Font Medium / Font 14sp / Line Height 20sp / linespacing 6sp -->
+    <style name="FontMedium.Link">
+        <item name="android:background">@drawable/dashed_line_dawn_selector</item>
+        <item name="android:textColor">@color/dawn</item>
+        <item name="android:minHeight">@dimen/text_normal_line_spacing</item>
+        <item name="android:textSize">@dimen/general_text_size</item>
+        <item name="android:lineSpacingExtra">@dimen/small_linespacing</item>
+    </style>
+</resources>

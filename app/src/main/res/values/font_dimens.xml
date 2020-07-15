@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_big_line_spacing">24sp</dimen>
+    <dimen name="text_normal_line_spacing">20sp</dimen>
+    <dimen name="caption_line_spacing">16sp</dimen>
+
+    <dimen name="general_big_text_size">16sp</dimen>
+    <dimen name="general_text_size">14sp</dimen>
+    <dimen name="general_small_text_size">12sp</dimen>
+
+    <dimen name="medium_linespacing">6sp</dimen>
+    <dimen name="small_linespacing">4sp</dimen>
+    <dimen name="smallest_linespacing">2sp</dimen>
+</resources>
