@@ -9,22 +9,21 @@
     android:paddingEnd="@dimen/medium_margin"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/motionWithoutScroll"
-        android:layout_width="wrap_content"
+    <com.mauricio.poc.position.components.PositionView
+        android:id="@+id/patrimonyView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Motion without scroll"
+        android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/motionWithScroll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Motion with scroll"
+    <View
+        android:id="@+id/profitabilityView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:background="@color/sunrise"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/motionWithoutScroll" />
-
+        app:layout_constraintTop_toBottomOf="@+id/patrimonyView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
