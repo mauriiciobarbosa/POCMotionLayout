@@ -88,8 +88,12 @@ internal class PieChartView @JvmOverloads constructor(
     }
 
     override fun onNothingSelected() {
-        highlightValues(null)
+        setNoValueSelected()
         onValueSelected?.invoke(null)
+    }
+
+    fun setNoValueSelected() {
+        highlightValues(null)
         selectedValue = null
         updateCenterText()
     }

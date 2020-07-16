@@ -29,6 +29,8 @@ import kotlinx.android.synthetic.main.layout_generic_error.view.*
 import kotlinx.android.synthetic.main.layout_position_view2_success_collapsed.view.*
 
 private const val ANIMATION_DURATION = 500L
+private const val TOGGLE_ROTATE_START = 0F
+private const val TOGGLE_ROTATE_END = -180F
 
 internal class PositionView2 @JvmOverloads constructor(
     context: Context,
@@ -65,23 +67,32 @@ internal class PositionView2 @JvmOverloads constructor(
 
     private fun showSuccess(positionData: PatrimonyViewData) {
         setupStateAsSuccess(positionData)
-        configureSuccessConstraintSet(isInitialState = true)
+        toggleSuccessConstraintSet(isInitialState = true)
     }
 
-    private fun configureSuccessConstraintSet(isInitialState: Boolean = false) {
-        val constraintSet = if (isExpanded || isInitialState) {
-            R.layout.layout_position_view2_success_collapsed
-        } else {
-            R.layout.layout_position_view2_success_expanded
+    private fun toggleSuccessConstraintSet(isInitialState: Boolean = false) {
+        val (constraintSet, transition) = when {
+            isInitialState -> {
+                pieChartView?.setNoValueSelected()
+                updateSelectedInvestment(pieChartView?.selectedValue)
+                isExpanded = false
+                pieChartView?.hideCenterText()
+                R.layout.layout_position_view2_success_collapsed to AutoTransition().apply {
+                    duration = ANIMATION_DURATION
+                }
+            }
+            isExpanded -> {
+                pieChartView?.setNoValueSelected()
+                updateSelectedInvestment(pieChartView?.selectedValue)
+                R.layout.layout_position_view2_success_collapsed to createOpenClosedTransition(
+                    TOGGLE_ROTATE_END to TOGGLE_ROTATE_START
+                )
+            }
+            else -> R.layout.layout_position_view2_success_expanded to createOpenClosedTransition(
+                TOGGLE_ROTATE_START to TOGGLE_ROTATE_END
+            )
         }
-        val transition = if (isInitialState) {
-            isExpanded = false
-            pieChartView?.hideCenterText()
-            AutoTransition().apply { duration = ANIMATION_DURATION }
-        } else {
-            val rotationValues = if (isExpanded) -180F to 0F else 0F to -180F
-            createOpenClosedTransition(rotationValues)
-        }
+
         updateConstraintSet(constraintSet, transition)
     }
 
@@ -90,7 +101,7 @@ internal class PositionView2 @JvmOverloads constructor(
         updateMoneyValues(this)
         setupPatrimonyChart(investmentTypes)
         updateSelectedInvestment(pieChartView?.selectedValue)
-        setToggleListener()
+        imageViewExpandable.setOnClickListener { toggleSuccessConstraintSet() }
     }
 
     private fun updateMoneyValues(position: PatrimonyViewData) = with(position) {
@@ -108,6 +119,9 @@ internal class PositionView2 @JvmOverloads constructor(
             context, investmentTypes
         ).build { valueSelected ->
             updateSelectedInvestment(valueSelected)
+            if (valueSelected != null && isExpanded.not()) {
+                toggleSuccessConstraintSet()
+            }
         }.also {
             if (isExpanded) it.showCenterText()
         }
@@ -131,12 +145,6 @@ internal class PositionView2 @JvmOverloads constructor(
         }
         textViewInvestmentSelectedLabel.animateTextChange(selectedInvestment.first)
         textViewInvestmentSelectedValue.animateTextChange(prepareMoneyValue(selectedInvestment.second))
-    }
-
-    private fun setToggleListener() {
-        imageViewExpandable.setOnClickListener {
-            configureSuccessConstraintSet()
-        }
     }
 
     private fun updateConstraintSet(@LayoutRes constrainSetId: Int, transition: Transition) {
