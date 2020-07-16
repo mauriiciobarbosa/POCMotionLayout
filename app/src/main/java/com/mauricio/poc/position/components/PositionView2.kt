@@ -16,20 +16,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.transition.doOnEnd
 import androidx.core.transition.doOnStart
-import androidx.core.view.isVisible
 import com.mauricio.poc.position.R
 import com.mauricio.poc.position.data.PatrimonyError
 import com.mauricio.poc.position.data.PatrimonyLoading
 import com.mauricio.poc.position.data.PatrimonyState
 import com.mauricio.poc.position.data.PatrimonyViewData
 import com.mauricio.poc.position.extensions.animateTextChange
-import com.mauricio.poc.position.extensions.gone
 import com.mauricio.poc.position.extensions.hideMoney
-import com.mauricio.poc.position.extensions.invisible
 import com.mauricio.poc.position.extensions.moneyFormat
 import com.mauricio.poc.position.extensions.visible
 import kotlinx.android.synthetic.main.layout_generic_error.view.*
-import kotlinx.android.synthetic.main.layout_position_view2_start.view.*
+import kotlinx.android.synthetic.main.layout_position_view2_success_collapsed.view.*
 
 private const val ANIMATION_DURATION = 500L
 
@@ -46,7 +43,7 @@ internal class PositionView2 @JvmOverloads constructor(
     private var pieChartView: PieChartView? = null
 
     init {
-        inflate(context, R.layout.layout_position_view2_start, this)
+        inflate(context, R.layout.layout_position_view2_success_collapsed, this)
     }
 
     fun setupState(patrimonyState: PatrimonyState) {
@@ -60,24 +57,32 @@ internal class PositionView2 @JvmOverloads constructor(
     }
 
     private fun showLoading() {
-        progressBarLoading.visible()
-        textViewMyPatrimony.gone()
-        groupPatrimonySuccess.gone()
-        groupSelectedInvestment.gone()
-        layoutPositionError.gone()
-        animationListener?.invoke(AutoTransition().apply {
+        updateConstraintSet(R.layout.layout_position_view2_loading, AutoTransition().apply {
             duration = ANIMATION_DURATION
         })
         data = null
     }
 
     private fun showSuccess(positionData: PatrimonyViewData) {
-        textViewMyPatrimony.visible()
-        groupPatrimonySuccess.visible()
-        groupSelectedInvestment.isVisible = isExpanded
-        progressBarLoading.gone()
-        layoutPositionError.gone()
         setupStateAsSuccess(positionData)
+        configureSuccessConstraintSet(isInitialState = true)
+    }
+
+    private fun configureSuccessConstraintSet(isInitialState: Boolean = false) {
+        val constraintSet = if (isExpanded || isInitialState) {
+            R.layout.layout_position_view2_success_collapsed
+        } else {
+            R.layout.layout_position_view2_success_expanded
+        }
+        val transition = if (isInitialState) {
+            isExpanded = false
+            pieChartView?.hideCenterText()
+            AutoTransition().apply { duration = ANIMATION_DURATION }
+        } else {
+            val rotationValues = if (isExpanded) -180F to 0F else 0F to -180F
+            createOpenClosedTransition(rotationValues)
+        }
+        updateConstraintSet(constraintSet, transition)
     }
 
     private fun setupStateAsSuccess(positionData: PatrimonyViewData): Unit = with(positionData) {
@@ -130,34 +135,31 @@ internal class PositionView2 @JvmOverloads constructor(
 
     private fun setToggleListener() {
         imageViewExpandable.setOnClickListener {
-            if (isExpanded) {
-                updateConstraintSet(R.layout.layout_position_view2_start)
-            } else {
-                updateConstraintSet(R.layout.layout_position_view2_end)
-            }
+            configureSuccessConstraintSet()
         }
     }
 
-    private fun updateConstraintSet(@LayoutRes constrainSetId: Int) {
-        val rotationValues = if (isExpanded) -180F to 0F else 0F to -180F
+    private fun updateConstraintSet(@LayoutRes constrainSetId: Int, transition: Transition) {
         val newConstraintSet = ConstraintSet().apply {
             clone(context, constrainSetId)
         }
-        val transitionSet = createOpenClosedTransition(rotationValues)
         newConstraintSet.applyTo(contentContainer)
 
-        animationListener?.invoke(transitionSet)
+        animationListener?.invoke(transition)
     }
 
-    private fun createOpenClosedTransition(rotationValues: Pair<Float, Float>): TransitionSet {
-        return TransitionSet().apply {
+    private fun createOpenClosedTransition(rotationValues: Pair<Float, Float>) =
+        TransitionSet().apply {
             duration = ANIMATION_DURATION
             interpolator = AccelerateDecelerateInterpolator()
             addTransition(ChangeBounds())
             pathMotion = ArcMotion()
             doOnStart {
                 ObjectAnimator.ofFloat(
-                    imageViewExpandable, View.ROTATION, rotationValues.first, rotationValues.second
+                    imageViewExpandable,
+                    View.ROTATION,
+                    rotationValues.first,
+                    rotationValues.second
                 ).apply {
                     addUpdateListener { valueAnimator ->
                         if (isExpanded.not() && valueAnimator.animatedFraction > 0.9) {
@@ -175,16 +177,10 @@ internal class PositionView2 @JvmOverloads constructor(
                 isExpanded = !isExpanded
             }
         }
-    }
 
     private fun showError(error: PatrimonyError) {
-        textViewMyPatrimony.visible()
-        layoutPositionError.visible()
-        progressBarLoading.gone()
-        groupPatrimonySuccess.gone()
-        groupSelectedInvestment.gone()
         setupStateAsError(error)
-        animationListener?.invoke(AutoTransition().apply {
+        updateConstraintSet(R.layout.layout_position_view2_error, AutoTransition().apply {
             duration = ANIMATION_DURATION
         })
         data = null

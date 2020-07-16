@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_custody_view">
+
+    <TextView
+        android:id="@+id/textViewMyPatrimony"
+        style="@style/FontMedium.Paragraph1"
+        android:layout_width="wrap_content"
+        android:text="@string/all_my_patrimony"
+        android:textColor="@color/awaken"
+        app:layout_constraintStart_toEndOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+
+    <ImageView
+        android:id="@+id/imageViewExpandable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:padding="@dimen/small_margin"
+        android:src="@drawable/ic_navigation_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPatrimonyValue"
+        style="@style/FontMedium.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintStart_toEndOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/textViewMyPatrimony"
+        tools:text="R$ 12.359.049,93" />
+
+    <FrameLayout
+        android:id="@+id/frameLayoutPatrimonyGraph"
+        android:layout_width="@dimen/home_chart_size_big"
+        android:layout_height="@dimen/home_chart_size_big"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toEndOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/textViewEasyAccountValue"
+        tools:background="@color/sunrise" />
+
+    <TextView
+        android:id="@+id/textViewInvestmentSelectedLabel"
+        style="@style/FontLight.Caption"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/small_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/label_total_invested"
+        app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayoutPatrimonyGraph" />
+
+    <TextView
+        android:id="@+id/textViewInvestmentSelectedValue"
+        style="@style/FontMedium.Paragraph1"
+        android:layout_width="0dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInvestmentSelectedLabel"
+        tools:text="R$ 1.000.000,00" />
+
+    <ImageView
+        android:id="@+id/imageViewMyInvestmentsIcon"
+        android:layout_width="@dimen/icon_small_size"
+        android:layout_height="@dimen/icon_small_size"
+        android:layout_marginTop="@dimen/default_margin"
+        android:src="@drawable/ic_wallet"
+        android:tint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPatrimonyValue" />
+
+    <TextView
+        android:id="@+id/textViewMyInvestmentsLabel"
+        style="@style/FontLight.Caption"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/small_margin"
+        android:text="@string/all_my_investments"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMyInvestmentsIcon"
+        app:layout_constraintTop_toTopOf="@+id/imageViewMyInvestmentsIcon" />
+
+    <TextView
+        android:id="@+id/textViewMyInvestmentsValue"
+        style="@style/FontMedium.Paragraph1"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/textViewMyInvestmentsLabel"
+        app:layout_constraintTop_toBottomOf="@id/textViewMyInvestmentsLabel"
+        tools:text="R$ 10.843.827,25" />
+
+    <ImageView
+        android:id="@+id/imageViewEasyAccountIcon"
+        android:layout_width="@dimen/icon_small_size"
+        android:layout_height="@dimen/icon_small_size"
+        android:layout_marginTop="@dimen/small_margin"
+        android:src="@drawable/ic_coin"
+        android:tint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMyInvestmentsValue" />
+
+    <TextView
+        android:id="@+id/textViewEasyAccountLabel"
+        style="@style/FontLight.Caption"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/small_margin"
+        android:text="@string/all_easy_account"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toEndOf="@+id/imageViewEasyAccountIcon"
+        app:layout_constraintTop_toTopOf="@+id/imageViewEasyAccountIcon" />
+
+    <TextView
+        android:id="@+id/textViewEasyAccountValue"
+        style="@style/FontMedium.Paragraph1"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/textViewEasyAccountLabel"
+        app:layout_constraintTop_toBottomOf="@id/textViewEasyAccountLabel"
+        tools:text="R$ 1.515.222,68" />
+
+    <TextView
+        android:id="@+id/textViewMyInvestmentsLink"
+        style="@style/FontMedium.Link"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="@string/home_see_my_investments"
+        app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
+        app:layout_constraintEnd_toStartOf="@id/endGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInvestmentSelectedValue"
+        app:layout_constraintVertical_bias="1" />
+
+    <include
+        android:id="@+id/layoutPositionError"
+        layout="@layout/layout_generic_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMyPatrimony" />
+
+    <ProgressBar
+        android:id="@+id/progressBarLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupPatrimonySuccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="frameLayoutPatrimonyGraph,textViewMyInvestmentsLink,imageViewMyInvestmentsIcon,textViewEasyAccountValue,textViewEasyAccountLabel,imageViewEasyAccountIcon,textViewPatrimonyValue,textViewMyInvestmentsLabel,textViewMyInvestmentsValue,textViewInvestmentSelectedLabel,textViewInvestmentSelectedValue,imageViewExpandable" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/home_card_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/home_card_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/home_card_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/home_card_padding" />
+</androidx.constraintlayout.widget.ConstraintLayout>
