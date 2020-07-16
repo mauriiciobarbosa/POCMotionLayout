@@ -74,7 +74,7 @@ internal class PositionView2 @JvmOverloads constructor(
         val (constraintSet, transition) = when {
             isInitialState -> {
                 pieChartView?.setNoValueSelected()
-                updateSelectedInvestment(pieChartView?.selectedValue)
+                setSelectedInvestmentAsDefault()
                 isExpanded = false
                 pieChartView?.hideCenterText()
                 R.layout.layout_position_view2_success_collapsed to AutoTransition().apply {
@@ -83,7 +83,6 @@ internal class PositionView2 @JvmOverloads constructor(
             }
             isExpanded -> {
                 pieChartView?.setNoValueSelected()
-                updateSelectedInvestment(pieChartView?.selectedValue)
                 R.layout.layout_position_view2_success_collapsed to createOpenClosedTransition(
                     TOGGLE_ROTATE_END to TOGGLE_ROTATE_START
                 )
@@ -94,6 +93,11 @@ internal class PositionView2 @JvmOverloads constructor(
         }
 
         updateConstraintSet(constraintSet, transition)
+    }
+
+    private fun setSelectedInvestmentAsDefault() {
+        textViewInvestmentSelectedLabel.text = context.getString(R.string.label_total_invested)
+        textViewInvestmentSelectedValue.text = data?.amountInvestments.orEmpty()
     }
 
     private fun setupStateAsSuccess(positionData: PatrimonyViewData): Unit = with(positionData) {
@@ -141,7 +145,7 @@ internal class PositionView2 @JvmOverloads constructor(
         val selectedInvestment = if (valueSelected != null) {
             valueSelected.description to valueSelected.value.moneyFormat
         } else {
-            context.getString(R.string.label_total_invested) to (data?.amountInvestments ?: "")
+            context.getString(R.string.label_total_invested) to data?.amountInvestments.orEmpty()
         }
         textViewInvestmentSelectedLabel.animateTextChange(selectedInvestment.first)
         textViewInvestmentSelectedValue.animateTextChange(prepareMoneyValue(selectedInvestment.second))
@@ -183,6 +187,7 @@ internal class PositionView2 @JvmOverloads constructor(
             doOnEnd {
                 imageViewExpandable.isEnabled = true
                 isExpanded = !isExpanded
+                if (isExpanded.not()) setSelectedInvestmentAsDefault()
             }
         }
 
