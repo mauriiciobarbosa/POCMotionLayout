@@ -43,7 +43,88 @@ internal class PositionView2 @JvmOverloads constructor(
 
     fun setupState(patrimonyState: PatrimonyViewData) {
         showSuccess(patrimonyState)
+    }
+
+    private fun showSuccess(positionData: PatrimonyViewData) {
+        textViewMyPatrimony.visible()
+        groupPatrimonySuccess.visible()
+        setupStateAsSuccess(positionData)
+    }
+
+    private fun setupStateAsSuccess(positionData: PatrimonyViewData): Unit = with(positionData) {
         setToggleListener()
+        updateSelectedInvestment(pieChartView?.selectedValue)
+        updateMoneyValues(this)
+        setupPatrimonyChart(investmentTypes)
+        data = this
+    }
+
+    private fun updateMoneyValues(position: PatrimonyViewData) = with(position) {
+        textViewPatrimonyValue.animateTextChange(prepareMoneyValue(amountPatrimony))
+        textViewMyInvestmentsValue.animateTextChange(prepareMoneyValue(amountInvestments))
+        textViewEasyAccountValue.animateTextChange(prepareMoneyValue(amountAccount))
+    }
+
+    private fun prepareMoneyValue(moneyValue: String): String {
+        return if (isAbleToShowMoney) moneyValue else moneyValue.hideMoney()
+    }
+
+    private fun setupPatrimonyChart(investmentTypes: List<PieChartView.Value>) {
+        pieChartView = PieChartView(
+            context, investmentTypes
+        ).build { valueSelected ->
+            updateSelectedInvestment(valueSelected)
+        }.also {
+            if (isExpanded) it.showCenterText()
+        }
+
+        frameLayoutPatrimonyGraph.apply {
+            removeAllViews()
+
+            addView(
+                pieChartView,
+                AbsListView.LayoutParams.MATCH_PARENT,
+                AbsListView.LayoutParams.MATCH_PARENT
+            )
+        }
+    }
+
+    private fun updateSelectedInvestment(valueSelected: PieChartView.Value?) {
+        val selectedInvestment = if (valueSelected != null) {
+            valueSelected.description to valueSelected.value.moneyFormat
+        } else {
+            context.getString(R.string.label_total_invested) to (data?.amountInvestments ?: "")
+        }
+        textViewInvestmentSelectedLabel.animateTextChange(selectedInvestment.first)
+        textViewInvestmentSelectedValue.animateTextChange(prepareMoneyValue(selectedInvestment.second))
+    }
+
+    fun setTransitionListener(animationListener: (Transition) -> Unit) {
+        this.animationListener = animationListener
+    }
+
+    fun showMoney() {
+        isAbleToShowMoney = true
+
+        if (isSuccessState()) {
+            val position = data ?: return
+            updateMoneyValues(position)
+            updateSelectedInvestment(pieChartView?.selectedValue)
+        }
+    }
+
+    private fun isSuccessState(): Boolean {
+        return data != null && groupPatrimonySuccess.visibility == View.VISIBLE
+    }
+
+    fun hideMoney() {
+        isAbleToShowMoney = false
+
+        if (isSuccessState()) {
+            val position = data ?: return
+            updateMoneyValues(position)
+            updateSelectedInvestment(pieChartView?.selectedValue)
+        }
     }
 
     private fun setToggleListener() {
@@ -93,59 +174,5 @@ internal class PositionView2 @JvmOverloads constructor(
                 isExpanded = !isExpanded
             }
         }
-    }
-
-    private fun showSuccess(positionData: PatrimonyViewData) {
-        textViewMyPatrimony.visible()
-        groupPatrimonySuccess.visible()
-        setupStateAsSuccess(positionData)
-    }
-
-    private fun setupStateAsSuccess(positionData: PatrimonyViewData): Unit = with(positionData) {
-        updateMoneyValues(this)
-        setupPatrimonyChart(investmentTypes)
-        data = this
-    }
-
-    private fun updateMoneyValues(position: PatrimonyViewData) = with(position) {
-        textViewPatrimonyValue.animateTextChange(prepareMoneyValue(amountPatrimony))
-        textViewMyInvestmentsValue.animateTextChange(prepareMoneyValue(amountInvestments))
-        textViewEasyAccountValue.animateTextChange(prepareMoneyValue(amountAccount))
-        textViewInvestmentSelectedLabel.text = context.getString(R.string.label_total_invested)
-        textViewInvestmentSelectedValue.text = prepareMoneyValue(amountInvestments)
-    }
-
-    private fun prepareMoneyValue(moneyValue: String): String {
-        return if (isAbleToShowMoney) moneyValue else moneyValue.hideMoney()
-    }
-
-    private fun setupPatrimonyChart(investmentTypes: List<PieChartView.Value>) {
-        pieChartView = PieChartView(
-            context, investmentTypes
-        ).build { valueSelected ->
-            val selectedInvestment = if (valueSelected != null) {
-                valueSelected.description to valueSelected.value.moneyFormat
-            } else {
-                context.getString(R.string.label_total_invested) to (data?.amountInvestments ?: "")
-            }
-            textViewInvestmentSelectedLabel.animateTextChange(selectedInvestment.first)
-            textViewInvestmentSelectedValue.animateTextChange(prepareMoneyValue(selectedInvestment.second))
-        }.also {
-            if (isExpanded) it.showCenterText()
-        }
-
-        frameLayoutPatrimonyGraph.apply {
-            removeAllViews()
-
-            addView(
-                pieChartView,
-                AbsListView.LayoutParams.MATCH_PARENT,
-                AbsListView.LayoutParams.MATCH_PARENT
-            )
-        }
-    }
-
-    fun setTransitionListener(animationListener: (Transition) -> Unit) {
-        this.animationListener = animationListener
     }
 }
