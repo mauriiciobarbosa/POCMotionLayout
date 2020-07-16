@@ -61,8 +61,8 @@ internal class PositionView2 @JvmOverloads constructor(
 
     private fun showLoading() {
         progressBarLoading.visible()
-        textViewMyPatrimony.invisible()
-        groupPatrimonySuccess.invisible()
+        textViewMyPatrimony.gone()
+        groupPatrimonySuccess.gone()
         groupSelectedInvestment.gone()
         layoutPositionError.gone()
         animationListener?.invoke(AutoTransition().apply {
