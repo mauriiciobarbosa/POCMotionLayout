@@ -5,4 +5,7 @@
     <string name="all_my_investments">Meus investimentos</string>
     <string name="all_my_patrimony">Meu patrimônio</string>
     <string name="label_total_invested">Total Investido</string>
+    <string name="home_general_error_title">Calma, está tudo bem</string>
+    <string name="home_general_error_description">seus investimentos continuam seguros, mas não conseguimos montar agora por problemas técnicos.</string>
+    <string name="try_again">Tentar novamente</string>
 </resources>

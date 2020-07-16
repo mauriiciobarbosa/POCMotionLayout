@@ -44,11 +44,42 @@
 
     <Button
         android:id="@+id/showHideButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/medium_margin"
-        android:text="show/hide values"
+        android:text="eye"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/showLoading"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/showLoading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:text="loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/showError"
+        app:layout_constraintStart_toEndOf="@+id/showHideButton" />
+
+    <Button
+        android:id="@+id/showError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:text="error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/showSuccess"
+        app:layout_constraintStart_toEndOf="@+id/showLoading" />
+
+    <Button
+        android:id="@+id/showSuccess"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:text="success"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/showError" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

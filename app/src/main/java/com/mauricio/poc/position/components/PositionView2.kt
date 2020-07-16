@@ -16,11 +16,17 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.transition.doOnEnd
 import androidx.core.transition.doOnStart
 import com.mauricio.poc.position.R
+import com.mauricio.poc.position.data.PatrimonyError
+import com.mauricio.poc.position.data.PatrimonyLoading
+import com.mauricio.poc.position.data.PatrimonyState
 import com.mauricio.poc.position.data.PatrimonyViewData
 import com.mauricio.poc.position.extensions.animateTextChange
+import com.mauricio.poc.position.extensions.gone
 import com.mauricio.poc.position.extensions.hideMoney
+import com.mauricio.poc.position.extensions.invisible
 import com.mauricio.poc.position.extensions.moneyFormat
 import com.mauricio.poc.position.extensions.visible
+import kotlinx.android.synthetic.main.layout_generic_error.view.*
 import kotlinx.android.synthetic.main.layout_position_view2_start.view.*
 
 private const val ANIMATION_DURATION = 500L
@@ -41,21 +47,39 @@ internal class PositionView2 @JvmOverloads constructor(
         inflate(context, R.layout.layout_position_view2_start, this)
     }
 
-    fun setupState(patrimonyState: PatrimonyViewData) {
-        showSuccess(patrimonyState)
+    fun setupState(patrimonyState: PatrimonyState) {
+        if (patrimonyState == data) return
+
+        when (patrimonyState) {
+            is PatrimonyLoading -> showLoading()
+            is PatrimonyViewData -> showSuccess(patrimonyState)
+            is PatrimonyError -> showError(patrimonyState)
+        }
+    }
+
+    private fun showLoading() {
+        progressBarLoading.visible()
+        textViewMyPatrimony.invisible()
+        groupPatrimonySuccess.invisible()
+        layoutPositionError.gone()
+        data = null
     }
 
     private fun showSuccess(positionData: PatrimonyViewData) {
+        textViewMyPatrimony.visible()
+        groupPatrimonySuccess.visible()
+        progressBarLoading.gone()
+        layoutPositionError.gone()
         textViewMyPatrimony.visible()
         groupPatrimonySuccess.visible()
         setupStateAsSuccess(positionData)
     }
 
     private fun setupStateAsSuccess(positionData: PatrimonyViewData): Unit = with(positionData) {
-        setToggleListener()
-        updateSelectedInvestment(pieChartView?.selectedValue)
         updateMoneyValues(this)
         setupPatrimonyChart(investmentTypes)
+        updateSelectedInvestment(pieChartView?.selectedValue)
+        setToggleListener()
         data = this
     }
 
@@ -97,34 +121,6 @@ internal class PositionView2 @JvmOverloads constructor(
         }
         textViewInvestmentSelectedLabel.animateTextChange(selectedInvestment.first)
         textViewInvestmentSelectedValue.animateTextChange(prepareMoneyValue(selectedInvestment.second))
-    }
-
-    fun setTransitionListener(animationListener: (Transition) -> Unit) {
-        this.animationListener = animationListener
-    }
-
-    fun showMoney() {
-        isAbleToShowMoney = true
-
-        if (isSuccessState()) {
-            val position = data ?: return
-            updateMoneyValues(position)
-            updateSelectedInvestment(pieChartView?.selectedValue)
-        }
-    }
-
-    private fun isSuccessState(): Boolean {
-        return data != null && groupPatrimonySuccess.visibility == View.VISIBLE
-    }
-
-    fun hideMoney() {
-        isAbleToShowMoney = false
-
-        if (isSuccessState()) {
-            val position = data ?: return
-            updateMoneyValues(position)
-            updateSelectedInvestment(pieChartView?.selectedValue)
-        }
     }
 
     private fun setToggleListener() {
@@ -173,6 +169,74 @@ internal class PositionView2 @JvmOverloads constructor(
                 imageViewExpandable.isEnabled = true
                 isExpanded = !isExpanded
             }
+        }
+    }
+
+    private fun showError(error: PatrimonyError) {
+        textViewMyPatrimony.visible()
+        layoutPositionError.visible()
+        progressBarLoading.gone()
+        groupPatrimonySuccess.gone()
+        setupStateAsError(error)
+        data = null
+    }
+
+    private fun setupStateAsError(error: PatrimonyError) {
+        if (error.isGeneral()) {
+            setupStateAsGeneralError()
+        } else {
+            setupStateAsSpecificError(error)
+        }
+    }
+
+    private fun setupStateAsGeneralError() = with(context) {
+        textViewTitle.text = getString(R.string.home_general_error_title)
+        textViewDescription.text = getString(R.string.home_general_error_description)
+        gregButtonRetry.visible()
+    }
+
+    private fun setupStateAsSpecificError(error: PatrimonyError) = with(context) {
+        textViewTitle.text = error.title
+        textViewDescription.text = error.description
+    }
+
+    fun setTransitionListener(animationListener: (Transition) -> Unit) {
+        this.animationListener = animationListener
+    }
+
+    fun setOnLinkClickListener(listener: () -> Unit) {
+        textViewMyInvestmentsLink.setOnClickListener {
+            listener()
+        }
+    }
+
+    fun setTryAgainClickListener(listener: () -> Unit) {
+        gregButtonRetry.setOnClickListener {
+            listener.invoke()
+        }
+    }
+
+    fun showMoney() {
+        isAbleToShowMoney = true
+
+        if (isSuccessState()) {
+            val position = data ?: return
+            updateMoneyValues(position)
+            updateSelectedInvestment(pieChartView?.selectedValue)
+        }
+    }
+
+    private fun isSuccessState(): Boolean {
+        return data != null && groupPatrimonySuccess.visibility == View.VISIBLE
+    }
+
+    fun hideMoney() {
+        isAbleToShowMoney = false
+
+        if (isSuccessState()) {
+            val position = data ?: return
+            updateMoneyValues(position)
+            updateSelectedInvestment(pieChartView?.selectedValue)
         }
     }
 }

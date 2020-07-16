@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageViewError"
+        android:layout_width="@dimen/home_profitability_error_icon_size"
+        android:layout_height="@dimen/home_profitability_error_icon_size"
+        android:importantForAccessibility="no"
+        android:src="@drawable/img_error"
+        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintStart_toEndOf="@+id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/top_guideline"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/FontMedium.Subtitle"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/default_margin"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintStart_toEndOf="@+id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewError"
+        tools:text="@string/home_general_error_title" />
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        style="@style/FontLight.Paragraph2"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/small_margin"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintStart_toEndOf="@+id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        tools:text="@string/home_general_error_description" />
+
+    <Button
+        android:id="@+id/gregButtonRetry"
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/home_profitability_button_width"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/try_again"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintStart_toEndOf="@+id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/default_margin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/home_card_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/home_card_padding" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/home_card_padding" />
+</androidx.constraintlayout.widget.ConstraintLayout>
