@@ -3,6 +3,7 @@ package com.mauricio.poc.position.components
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.transition.ArcMotion
+import android.transition.AutoTransition
 import android.transition.ChangeBounds
 import android.transition.Transition
 import android.transition.TransitionSet
@@ -15,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.transition.doOnEnd
 import androidx.core.transition.doOnStart
+import androidx.core.view.isVisible
 import com.mauricio.poc.position.R
 import com.mauricio.poc.position.data.PatrimonyError
 import com.mauricio.poc.position.data.PatrimonyLoading
@@ -61,26 +63,29 @@ internal class PositionView2 @JvmOverloads constructor(
         progressBarLoading.visible()
         textViewMyPatrimony.invisible()
         groupPatrimonySuccess.invisible()
+        groupSelectedInvestment.gone()
         layoutPositionError.gone()
+        animationListener?.invoke(AutoTransition().apply {
+            duration = ANIMATION_DURATION
+        })
         data = null
     }
 
     private fun showSuccess(positionData: PatrimonyViewData) {
         textViewMyPatrimony.visible()
         groupPatrimonySuccess.visible()
+        groupSelectedInvestment.isVisible = isExpanded
         progressBarLoading.gone()
         layoutPositionError.gone()
-        textViewMyPatrimony.visible()
-        groupPatrimonySuccess.visible()
         setupStateAsSuccess(positionData)
     }
 
     private fun setupStateAsSuccess(positionData: PatrimonyViewData): Unit = with(positionData) {
+        data = this
         updateMoneyValues(this)
         setupPatrimonyChart(investmentTypes)
         updateSelectedInvestment(pieChartView?.selectedValue)
         setToggleListener()
-        data = this
     }
 
     private fun updateMoneyValues(position: PatrimonyViewData) = with(position) {
@@ -138,13 +143,13 @@ internal class PositionView2 @JvmOverloads constructor(
         val newConstraintSet = ConstraintSet().apply {
             clone(context, constrainSetId)
         }
-        val transitionSet = createTransition(rotationValues)
+        val transitionSet = createOpenClosedTransition(rotationValues)
         newConstraintSet.applyTo(contentContainer)
 
         animationListener?.invoke(transitionSet)
     }
 
-    private fun createTransition(rotationValues: Pair<Float, Float>): TransitionSet {
+    private fun createOpenClosedTransition(rotationValues: Pair<Float, Float>): TransitionSet {
         return TransitionSet().apply {
             duration = ANIMATION_DURATION
             interpolator = AccelerateDecelerateInterpolator()
@@ -177,7 +182,11 @@ internal class PositionView2 @JvmOverloads constructor(
         layoutPositionError.visible()
         progressBarLoading.gone()
         groupPatrimonySuccess.gone()
+        groupSelectedInvestment.gone()
         setupStateAsError(error)
+        animationListener?.invoke(AutoTransition().apply {
+            duration = ANIMATION_DURATION
+        })
         data = null
     }
 

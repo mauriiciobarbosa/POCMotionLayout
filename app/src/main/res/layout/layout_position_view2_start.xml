@@ -51,7 +51,6 @@
         android:layout_width="0dp"
         android:layout_marginTop="@dimen/small_margin"
         android:gravity="center_horizontal"
-        android:visibility="gone"
         android:text="@string/label_total_invested"
         app:layout_constraintEnd_toEndOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
@@ -63,7 +62,6 @@
         android:layout_width="0dp"
         android:gravity="center_horizontal"
         android:visibility="gone"
-        android:text="@string/label_total_invested"
         app:layout_constraintEnd_toEndOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
         app:layout_constraintTop_toBottomOf="@+id/textViewInvestmentSelectedLabel" />
@@ -162,7 +160,14 @@
         android:id="@+id/groupPatrimonySuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="frameLayoutPatrimonyGraph,textViewMyInvestmentsLink,imageViewMyInvestmentsIcon,textViewEasyAccountValue,textViewEasyAccountLabel,imageViewEasyAccountIcon,textViewPatrimonyValue,textViewMyInvestmentsLabel,textViewMyInvestmentsValue" />
+        app:constraint_referenced_ids="frameLayoutPatrimonyGraph,textViewMyInvestmentsLink,imageViewMyInvestmentsIcon,textViewEasyAccountValue,textViewEasyAccountLabel,imageViewEasyAccountIcon,textViewPatrimonyValue,textViewMyInvestmentsLabel,textViewMyInvestmentsValue,imageViewExpandable" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupSelectedInvestment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="textViewInvestmentSelectedLabel,textViewInvestmentSelectedValue" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuideline"
