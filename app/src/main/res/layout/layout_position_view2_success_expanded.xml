@@ -23,6 +23,7 @@
         android:layout_marginTop="@dimen/small_margin"
         android:layout_marginEnd="@dimen/small_margin"
         android:padding="@dimen/small_margin"
+        android:rotation="180"
         android:src="@drawable/ic_navigation_down"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

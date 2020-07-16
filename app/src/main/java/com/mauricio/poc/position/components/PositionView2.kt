@@ -167,12 +167,7 @@ internal class PositionView2 @JvmOverloads constructor(
             addTransition(ChangeBounds())
             pathMotion = ArcMotion()
             doOnStart {
-                ObjectAnimator.ofFloat(
-                    imageViewExpandable,
-                    View.ROTATION,
-                    rotationValues.first,
-                    rotationValues.second
-                ).apply {
+                ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).apply {
                     addUpdateListener { valueAnimator ->
                         if (isExpanded.not() && valueAnimator.animatedFraction > 0.9) {
                             pieChartView?.showCenterText()
