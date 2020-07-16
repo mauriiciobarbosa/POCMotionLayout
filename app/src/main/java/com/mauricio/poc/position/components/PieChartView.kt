@@ -23,9 +23,9 @@ internal class PieChartView @JvmOverloads constructor(
 ) : PieChart(context, attrs, defStyle), OnChartValueSelectedListener {
 
     private var onValueSelected: ((Value?) -> Unit)? = null
+    private var shouldShowCenterText = false
     var selectedValue: Value? = null
         private set
-    private var shouldShowCenterText = false
 
     fun build(onValueSelected: ((Value?) -> Unit)? = null): PieChartView {
         this.onValueSelected = onValueSelected
