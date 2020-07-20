@@ -29,18 +29,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
+            <com.mauricio.poc.position.components.ProfitabilityView
                 android:id="@+id/profitabilityView"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:background="@color/sunrise"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/patrimonyView" />
 
+            <View
+                android:id="@+id/gap"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profitabilityView" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 
     <Button
         android:id="@+id/showHideButton"

@@ -2,8 +2,8 @@ package com.mauricio.poc.position.data
 
 import com.mauricio.poc.position.components.PieChartView
 
-internal object PatrimonyRepository {
-    fun loadData(): PatrimonyViewData {
+internal object Repository {
+    fun loadPatrimonyData(): PatrimonyViewData {
         return PatrimonyViewData(
             amountPatrimony = "R$ 12.359.049,93",
             amountAccount = "R$ 1.515.222,68",
@@ -46,6 +46,15 @@ internal object PatrimonyRepository {
                     description = "Previdência Privada"
                 )
             )
+        )
+    }
+
+    fun loadProfitabilityData(): SummaryProfitabilityViewData {
+        return SummaryProfitabilityViewData(
+            date = "Março 2020",
+            period = "Rendimento de 03 a 19/03",
+            value = "+ R$ 956,00",
+            percentage = "+ 2,78%"
         )
     }
 }

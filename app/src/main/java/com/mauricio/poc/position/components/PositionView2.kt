@@ -28,7 +28,7 @@ import com.mauricio.poc.position.extensions.visible
 import kotlinx.android.synthetic.main.layout_generic_error.view.*
 import kotlinx.android.synthetic.main.layout_position_view2_success_collapsed.view.*
 
-private const val ANIMATION_DURATION = 500L
+private const val ANIMATION_DURATION = 300L
 private const val TOGGLE_ROTATE_START = 0F
 private const val TOGGLE_ROTATE_END = -180F
 

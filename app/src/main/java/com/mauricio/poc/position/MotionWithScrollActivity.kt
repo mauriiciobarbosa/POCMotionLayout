@@ -2,7 +2,7 @@ package com.mauricio.poc.position
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mauricio.poc.position.data.PatrimonyRepository
+import com.mauricio.poc.position.data.Repository
 import kotlinx.android.synthetic.main.activity_motion_with_scroll.*
 
 class MotionWithScrollActivity : AppCompatActivity() {
@@ -14,6 +14,6 @@ class MotionWithScrollActivity : AppCompatActivity() {
     }
 
     private fun setupPatrimonyView() {
-        patrimonyView.setupState(PatrimonyRepository.loadData())
+        patrimonyView.setupState(Repository.loadPatrimonyData())
     }
 }

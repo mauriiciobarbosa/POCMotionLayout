@@ -9,4 +9,7 @@
     <color name="black">#322828</color>
     <color name="light_grey">#D8D8D8</color>
     <color name="light_dawn">#B130A6</color>
+    <color name="dark_rise">#627900</color>
+    <color name="warm_grey">#F7F7EB</color>
+    <color name="nightfall">#B00000</color>
 </resources>

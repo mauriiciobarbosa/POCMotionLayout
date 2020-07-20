@@ -8,4 +8,7 @@
     <string name="home_general_error_title">Calma, está tudo bem</string>
     <string name="home_general_error_description">seus investimentos continuam seguros, mas não conseguimos montar agora por problemas técnicos.</string>
     <string name="try_again">Tentar novamente</string>
+    <string name="all_profitability">Rentabilidade</string>
+    <string name="home_continue_investing">Continuar investindo</string>
+    <string name="home_see_profitability">Ver rentabilidade</string>
 </resources>
