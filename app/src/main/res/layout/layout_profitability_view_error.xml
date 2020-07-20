@@ -103,7 +103,6 @@
         layout="@layout/layout_generic_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/textViewProfitabilityTitle" />
 
     <ProgressBar
@@ -127,6 +126,7 @@
         android:id="@+id/groupProfitabilityNoContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="imageViewStickerMoney,textViewMessage,gregButtonContinueInvesting" />
 
     <androidx.constraintlayout.widget.Guideline

@@ -77,9 +77,9 @@ class ConstraintSetWithScrollActivity : AppCompatActivity() {
 
     private fun setupProfitabilityView() = with(profitabilityView) {
         setupState(Repository.loadProfitabilityData())
-        // setTransitionListener { transition ->
-        //     TransitionManager.beginDelayedTransition(content, transition)
-        // }
+        setTransitionListener { transition ->
+            TransitionManager.beginDelayedTransition(content, transition)
+        }
         setTryAgainClickListener {
             profitabilityView.setupState(ProfitabilityLoading)
             postDelayed({

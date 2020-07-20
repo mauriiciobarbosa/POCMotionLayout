@@ -1,8 +1,12 @@
 package com.mauricio.poc.position.components
 
 import android.content.Context
+import android.transition.AutoTransition
+import android.transition.Transition
 import android.util.AttributeSet
+import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import com.mauricio.poc.position.R
 import com.mauricio.poc.position.data.ProfitabilityError
 import com.mauricio.poc.position.data.ProfitabilityLoading
@@ -10,16 +14,12 @@ import com.mauricio.poc.position.data.ProfitabilityNoContent
 import com.mauricio.poc.position.data.ProfitabilityState
 import com.mauricio.poc.position.data.SummaryProfitabilityViewData
 import com.mauricio.poc.position.extensions.animateTextChange
-import com.mauricio.poc.position.extensions.gone
 import com.mauricio.poc.position.extensions.hideMoney
-import com.mauricio.poc.position.extensions.invisible
 import com.mauricio.poc.position.extensions.isVisible
 import com.mauricio.poc.position.extensions.setMoneyColor
 import com.mauricio.poc.position.extensions.visible
 import kotlinx.android.synthetic.main.layout_generic_error.view.*
-import kotlinx.android.synthetic.main.layout_profitability_view.view.*
-import kotlinx.android.synthetic.main.layout_profitability_view_no_content.view.*
-import kotlinx.android.synthetic.main.layout_profitability_view_successful.view.*
+import kotlinx.android.synthetic.main.layout_profitability_view_collapsed.view.*
 
 internal class ProfitabilityView @JvmOverloads constructor(
     context: Context,
@@ -28,9 +28,10 @@ internal class ProfitabilityView @JvmOverloads constructor(
 
     private var data: SummaryProfitabilityViewData? = null
     private var isAbleToShowMoney = true
+    private var animationListener: ((Transition) -> Unit)? = null
 
     init {
-        inflate(context, R.layout.layout_profitability_view, this)
+        inflate(context, R.layout.layout_profitability_view_collapsed, this)
     }
 
     fun setupState(profitabilityState: ProfitabilityState) {
@@ -45,21 +46,22 @@ internal class ProfitabilityView @JvmOverloads constructor(
     }
 
     private fun showLoading() {
-        progressBarLoading.visible()
-        textViewProfitabilityTitle.invisible()
-        layoutProfitabilitySuccessful.invisible()
-        layoutProfitabilityError.gone()
-        layoutProfitabilityNoContent.gone()
+        updateConstraintSet(R.layout.layout_profitability_view_loading, AutoTransition())
         data = null
     }
 
+    private fun updateConstraintSet(@LayoutRes constrainSetId: Int, transition: Transition) {
+        val newConstraintSet = ConstraintSet().apply {
+            clone(context, constrainSetId)
+        }
+        newConstraintSet.applyTo(contentContainer)
+
+        animationListener?.invoke(transition)
+    }
+
     private fun showSuccess(profitabilityState: SummaryProfitabilityViewData) {
-        textViewProfitabilityTitle.visible()
-        layoutProfitabilitySuccessful.visible()
-        layoutProfitabilityError.gone()
-        progressBarLoading.gone()
-        layoutProfitabilityNoContent.gone()
         setupStateAsSuccess(profitabilityState)
+        updateConstraintSet(R.layout.layout_profitability_view_collapsed, AutoTransition())
     }
 
     private fun setupStateAsSuccess(profitabilityData: SummaryProfitabilityViewData) =
@@ -80,12 +82,8 @@ internal class ProfitabilityView @JvmOverloads constructor(
         }
 
     private fun showError(profitabilityState: ProfitabilityError) {
-        textViewProfitabilityTitle.visible()
-        layoutProfitabilityError.visible()
-        layoutProfitabilitySuccessful.gone()
-        progressBarLoading.gone()
-        layoutProfitabilityNoContent.gone()
         setupStateAsError(profitabilityState)
+        updateConstraintSet(R.layout.layout_profitability_view_error, AutoTransition())
         data = null
     }
 
@@ -110,17 +108,13 @@ internal class ProfitabilityView @JvmOverloads constructor(
     }
 
     private fun showNoContent(profitabilityState: ProfitabilityNoContent) {
-        textViewProfitabilityTitle.visible()
-        layoutProfitabilityNoContent.visible()
-        layoutProfitabilitySuccessful.gone()
-        layoutProfitabilityError.gone()
-        progressBarLoading.gone()
-        setupProfitabilityNoContent(profitabilityState)
+        textViewMessage.text = profitabilityState.message
+        updateConstraintSet(R.layout.layout_profitability_view_no_content, AutoTransition())
         data = null
     }
 
-    private fun setupProfitabilityNoContent(profitabilityState: ProfitabilityNoContent) {
-        textViewMessage.text = profitabilityState.message
+    fun setTransitionListener(animationListener: (Transition) -> Unit) {
+        this.animationListener = animationListener
     }
 
     fun setLinkClickListener(listener: () -> Unit) {

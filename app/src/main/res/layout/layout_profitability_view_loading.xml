@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:text="@string/all_profitability"
         android:textColor="@color/awaken"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/topGuideline" />
 
@@ -110,7 +111,6 @@
         android:id="@+id/progressBarLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,13 +120,14 @@
         android:id="@+id/groupProfitabilitySuccessful"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:constraint_referenced_ids="textViewProfitabilityDate,textViewProfitabilityPeriod,textViewProfitabilityValue,textViewProfitabilityPercentage,textViewProfitabilityLink" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupProfitabilityNoContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="imageViewStickerMoney,textViewMessage,gregButtonContinueInvesting" />
 
     <androidx.constraintlayout.widget.Guideline
