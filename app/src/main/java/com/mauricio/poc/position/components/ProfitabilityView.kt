@@ -23,8 +23,9 @@ import kotlinx.android.synthetic.main.layout_profitability_view_collapsed.view.*
 
 internal class ProfitabilityView @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null
-) : ConstraintLayout(context, attrs) {
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var data: SummaryProfitabilityViewData? = null
     private var isAbleToShowMoney = true
