@@ -22,5 +22,5 @@
     <dimen name="home_without_investments_medium_margin">@dimen/default_margin</dimen>
     <dimen name="home_illustration_size">100dp</dimen>
     <dimen name="home_patrimony_default_progress_state_height">240dp</dimen>
-    <dimen name="home_profitability_history_vertical_margin">12dp</dimen>
+    <dimen name="home_profitability_history_percentage_min_width">62dp</dimen>
 </resources>
