@@ -27,7 +27,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs) {
 
     private var data: SummaryProfitabilityViewData? = null
-    private var isAbleToShowMoney = false
+    private var isAbleToShowMoney = true
 
     init {
         inflate(context, R.layout.layout_profitability_view, this)
@@ -50,6 +50,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
         layoutProfitabilitySuccessful.invisible()
         layoutProfitabilityError.gone()
         layoutProfitabilityNoContent.gone()
+        data = null
     }
 
     private fun showSuccess(profitabilityState: SummaryProfitabilityViewData) {
@@ -85,6 +86,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
         progressBarLoading.gone()
         layoutProfitabilityNoContent.gone()
         setupStateAsError(profitabilityState)
+        data = null
     }
 
     private fun setupStateAsError(profitabilityError: ProfitabilityError) {
@@ -114,6 +116,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
         layoutProfitabilityError.gone()
         progressBarLoading.gone()
         setupProfitabilityNoContent(profitabilityState)
+        data = null
     }
 
     private fun setupProfitabilityNoContent(profitabilityState: ProfitabilityNoContent) {
