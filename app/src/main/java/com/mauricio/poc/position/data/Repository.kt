@@ -64,7 +64,7 @@ internal object Repository {
                 ),
                 SummaryProfitabilityViewData(
                     date = "Jan 2020", period = "Rendimento de 01 a 31/01",
-                    value = "- R$ 1M", percentage = "- 100%"
+                    value = "- R$ 999.999,99", percentage = "- 99%"
                 )
             )
         )
