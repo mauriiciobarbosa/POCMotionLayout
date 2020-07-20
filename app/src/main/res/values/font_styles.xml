@@ -38,6 +38,13 @@
     </style>
 
     <!-- Paragraph 2 - Font Light / Font 14sp / Line Height 20sp / linespacing 6sp -->
+    <style name="FontMedium.Paragraph2">
+        <item name="android:minHeight">@dimen/text_normal_line_spacing</item>
+        <item name="android:textSize">@dimen/general_text_size</item>
+        <item name="android:lineSpacingExtra">@dimen/small_linespacing</item>
+    </style>
+
+    <!-- Paragraph 2 - Font Light / Font 14sp / Line Height 20sp / linespacing 6sp -->
     <style name="FontLight.Paragraph2">
         <item name="android:minHeight">@dimen/text_normal_line_spacing</item>
         <item name="android:textSize">@dimen/general_text_size</item>

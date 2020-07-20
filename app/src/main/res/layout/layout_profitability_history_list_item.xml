@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
+
+    <View
+        android:id="@+id/topSeparator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/small_margin"
+        android:background="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewProfitabilityHistoryDate"
+        style="@style/FontMedium.Paragraph2"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Março 2020" />
+
+    <TextView
+        android:id="@+id/textViewProfitabilityHistoryValue"
+        style="@style/FontMedium.Paragraph2"
+        android:layout_width="wrap_content"
+        android:gravity="end|bottom"
+        tools:text="+ R$ 1.000.000,00"
+        tools:textColor="@color/dark_rise" />
+
+    <TextView
+        android:id="@+id/textViewProfitabilityHistoryPercentage"
+        style="@style/FontMedium.Paragraph2"
+        android:layout_width="wrap_content"
+        android:gravity="end|bottom"
+        tools:text="% 100,78"
+        tools:textColor="@color/dark_rise" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:orientation="horizontal"
+        app:constraint_referenced_ids="textViewProfitabilityHistoryDate,textViewProfitabilityHistoryValue,textViewProfitabilityHistoryPercentage"
+        app:flow_horizontalBias="1"
+        app:flow_horizontalGap="@dimen/small_margin"
+        app:flow_horizontalStyle="spread_inside"
+        app:flow_wrapMode="chain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topSeparator" />
+
+    <View
+        android:id="@+id/bottomSeparator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/small_margin"
+        android:background="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flow" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

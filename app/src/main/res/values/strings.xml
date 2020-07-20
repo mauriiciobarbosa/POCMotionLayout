@@ -12,4 +12,5 @@
     <string name="home_continue_investing">Continuar investindo</string>
     <string name="home_see_profitability">Ver rentabilidade</string>
     <string name="home_profitability_disclaimer">Sua rentabilidade é calculada em até 2 dias úteis anteriores e seus investimentos só rendem nos dias úteis</string>
+    <string name="home_profitability_history_title">Meses Anteriores</string>
 </resources>

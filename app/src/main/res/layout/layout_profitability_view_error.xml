@@ -76,6 +76,26 @@
         app:layout_constraintTop_toBottomOf="@id/textViewProfitabilityValue" />
 
     <TextView
+        android:id="@+id/textViewProfitabilityHistoryTitle"
+        style="@style/FontMedium.Paragraph2"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="@string/home_profitability_history_title"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/textViewProfitabilityDisclaimer" />
+
+    <com.mauricio.poc.position.components.ProfitabilityHistoryList
+        android:id="@+id/profitabilityHistoryList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/smallest_margin"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toEndOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/textViewProfitabilityHistoryTitle" />
+
+    <TextView
         android:id="@+id/textViewProfitabilityLink"
         style="@style/FontMedium.Link"
         android:layout_width="0dp"
@@ -83,7 +103,7 @@
         android:text="@string/home_see_profitability"
         app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
         app:layout_constraintEnd_toStartOf="@id/endGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/textViewProfitabilityDisclaimer" />
+        app:layout_constraintTop_toBottomOf="@+id/profitabilityHistoryList" />
 
     <ImageView
         android:id="@+id/imageViewStickerMoney"
