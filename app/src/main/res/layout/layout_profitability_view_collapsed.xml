@@ -161,7 +161,7 @@
         android:id="@+id/groupProfitabilitySuccessful"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textViewProfitabilityDate,textViewProfitabilityPeriod,textViewProfitabilityValue,textViewProfitabilityPercentage,textViewProfitabilityLink,imageViewExpandable,textViewProfitabilityDisclaimer" />
+        app:constraint_referenced_ids="textViewProfitabilityDate,textViewProfitabilityPeriod,textViewProfitabilityValue,textViewProfitabilityPercentage,textViewProfitabilityLink,textViewProfitabilityDisclaimer" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupProfitabilityNoContent"

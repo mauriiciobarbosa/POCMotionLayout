@@ -24,7 +24,7 @@ import com.mauricio.poc.position.extensions.isVisible
 import com.mauricio.poc.position.extensions.setMoneyColor
 import com.mauricio.poc.position.extensions.visible
 import kotlinx.android.synthetic.main.layout_generic_error.view.*
-import kotlinx.android.synthetic.main.layout_profitability_view_collapsed.view.*
+import kotlinx.android.synthetic.main.layout_profitability_view.view.*
 
 internal class ProfitabilityView @JvmOverloads constructor(
     context: Context,
@@ -38,7 +38,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
     private var animationListener: ((Transition) -> Unit)? = null
 
     init {
-        inflate(context, R.layout.layout_profitability_view_collapsed, this)
+        inflate(context, R.layout.layout_profitability_view, this)
     }
 
     fun setupState(profitabilityState: ProfitabilityState) {
@@ -69,7 +69,14 @@ internal class ProfitabilityView @JvmOverloads constructor(
 
     private fun showSuccess(profitabilityState: ProfitabilityViewData) {
         setupStateAsSuccess(profitabilityState)
-        updateConstraintSet(R.layout.layout_profitability_view_collapsed, AutoTransition())
+
+        val constraintId = if (profitabilityState.history.isNotEmpty()) {
+            R.layout.layout_profitability_view_collapsed
+        } else {
+            R.layout.layout_profitability_view
+        }
+
+        updateConstraintSet(constraintId, AutoTransition())
     }
 
     private fun setupStateAsSuccess(profitabilityData: ProfitabilityViewData) {
@@ -93,10 +100,10 @@ internal class ProfitabilityView @JvmOverloads constructor(
     }
 
     private fun toggleSuccessConstraintSet() {
-        val constraintId = if (isExpanded) {
-            R.layout.layout_profitability_view_collapsed
-        } else {
-            R.layout.layout_profitability_view_expanded
+        val constraintId = when {
+            isExpanded.not() -> R.layout.layout_profitability_view_expanded
+            data?.history?.isNotEmpty() == true -> R.layout.layout_profitability_view_collapsed
+            else -> R.layout.layout_profitability_view
         }
         updateConstraintSet(constraintId, createOpenClosedTransition())
     }

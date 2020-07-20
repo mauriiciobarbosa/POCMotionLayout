@@ -63,10 +63,10 @@ class ConstraintSetWithScrollActivity : AppCompatActivity() {
     }
 
     private fun setupPatrimonyView() = with(patrimonyView) {
-        setupState(Repository.loadPatrimonyData())
         setTransitionListener { transition ->
             TransitionManager.beginDelayedTransition(content, transition)
         }
+        setupState(Repository.loadPatrimonyData())
         setTryAgainClickListener {
             patrimonyView.setupState(PatrimonyLoading)
             postDelayed({
@@ -76,10 +76,10 @@ class ConstraintSetWithScrollActivity : AppCompatActivity() {
     }
 
     private fun setupProfitabilityView() = with(profitabilityView) {
-        setupState(Repository.loadProfitabilityData())
         setTransitionListener { transition ->
             TransitionManager.beginDelayedTransition(content, transition)
         }
+        setupState(Repository.loadProfitabilityData())
         setTryAgainClickListener {
             profitabilityView.setupState(ProfitabilityLoading)
             postDelayed({
