@@ -49,12 +49,24 @@ internal object Repository {
         )
     }
 
-    fun loadProfitabilityData(): SummaryProfitabilityViewData {
-        return SummaryProfitabilityViewData(
-            date = "Março 2020",
-            period = "Rendimento de 03 a 19/03",
-            value = "+ R$ 956,00",
-            percentage = "+ 2,78%"
+    fun loadProfitabilityData(): ProfitabilityViewData {
+        return ProfitabilityViewData(
+            current = SummaryProfitabilityViewData(
+                date = "Março 2020",
+                period = "Rendimento de 03 a 19/03",
+                value = "+ R$ 956,00",
+                percentage = "+ 2,78%"
+            ),
+            history = listOf(
+                SummaryProfitabilityViewData(
+                    date = "Fev 2020", period = "Rendimento de 02 a 28/02",
+                    value = "+ R$ 1.000.000,00", percentage = "+ 99,99%"
+                ),
+                SummaryProfitabilityViewData(
+                    date = "Jan 2020", period = "Rendimento de 01 a 31/01",
+                    value = "- R$ 1.000.000,00", percentage = "- 100%"
+                )
+            )
         )
     }
 }

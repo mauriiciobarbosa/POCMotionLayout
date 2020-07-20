@@ -6,12 +6,17 @@ internal enum class ProfitabilityErrorType {
 
 internal sealed class ProfitabilityState
 
+internal data class ProfitabilityViewData(
+    val current: SummaryProfitabilityViewData,
+    val history: List<SummaryProfitabilityViewData>
+) : ProfitabilityState()
+
 internal data class SummaryProfitabilityViewData(
     val date: String,
     val period: String,
     val value: String,
     val percentage: String
-) : ProfitabilityState()
+)
 
 internal data class ProfitabilityError(
     val type: ProfitabilityErrorType,

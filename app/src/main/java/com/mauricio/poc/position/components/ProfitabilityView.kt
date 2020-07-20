@@ -1,18 +1,23 @@
 package com.mauricio.poc.position.components
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.transition.AutoTransition
 import android.transition.Transition
 import android.util.AttributeSet
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.transition.doOnEnd
+import androidx.core.transition.doOnStart
 import com.mauricio.poc.position.R
 import com.mauricio.poc.position.data.ProfitabilityError
 import com.mauricio.poc.position.data.ProfitabilityLoading
 import com.mauricio.poc.position.data.ProfitabilityNoContent
 import com.mauricio.poc.position.data.ProfitabilityState
-import com.mauricio.poc.position.data.SummaryProfitabilityViewData
+import com.mauricio.poc.position.data.ProfitabilityViewData
 import com.mauricio.poc.position.extensions.animateTextChange
 import com.mauricio.poc.position.extensions.hideMoney
 import com.mauricio.poc.position.extensions.isVisible
@@ -27,8 +32,9 @@ internal class ProfitabilityView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private var data: SummaryProfitabilityViewData? = null
+    private var data: ProfitabilityViewData? = null
     private var isAbleToShowMoney = true
+    private var isExpanded = false
     private var animationListener: ((Transition) -> Unit)? = null
 
     init {
@@ -40,7 +46,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
 
         when (profitabilityState) {
             is ProfitabilityLoading -> showLoading()
-            is SummaryProfitabilityViewData -> showSuccess(profitabilityState)
+            is ProfitabilityViewData -> showSuccess(profitabilityState)
             is ProfitabilityError -> showError(profitabilityState)
             is ProfitabilityNoContent -> showNoContent(profitabilityState)
         }
@@ -60,13 +66,13 @@ internal class ProfitabilityView @JvmOverloads constructor(
         animationListener?.invoke(transition)
     }
 
-    private fun showSuccess(profitabilityState: SummaryProfitabilityViewData) {
+    private fun showSuccess(profitabilityState: ProfitabilityViewData) {
         setupStateAsSuccess(profitabilityState)
         updateConstraintSet(R.layout.layout_profitability_view_collapsed, AutoTransition())
     }
 
-    private fun setupStateAsSuccess(profitabilityData: SummaryProfitabilityViewData) =
-        with(profitabilityData) {
+    private fun setupStateAsSuccess(profitabilityData: ProfitabilityViewData) {
+        with(profitabilityData.current) {
             textViewProfitabilityDate.text = date
             textViewProfitabilityPeriod.text = period
             textViewProfitabilityValue.text = if (isAbleToShowMoney) value else value.hideMoney()
@@ -79,8 +85,32 @@ internal class ProfitabilityView @JvmOverloads constructor(
                 colorPositive = R.color.dark_rise,
                 colorNegative = R.color.nightfall
             )
-            data = this
         }
+        profitabilityHistoryList.setupHistory(profitabilityData.history)
+        imageViewExpandable.setOnClickListener { toggleSuccessConstraintSet() }
+        data = profitabilityData
+    }
+
+    private fun toggleSuccessConstraintSet() {
+        val constraintId = if (isExpanded) {
+            R.layout.layout_profitability_view_collapsed
+        } else {
+            R.layout.layout_profitability_view_expanded
+        }
+        updateConstraintSet(constraintId, createOpenClosedTransition())
+    }
+
+    private fun createOpenClosedTransition() = AutoTransition().apply {
+        interpolator = AccelerateDecelerateInterpolator()
+        doOnStart {
+            ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).start()
+            imageViewExpandable.isEnabled = false
+        }
+        doOnEnd {
+            imageViewExpandable.isEnabled = true
+            isExpanded = !isExpanded
+        }
+    }
 
     private fun showError(profitabilityState: ProfitabilityError) {
         setupStateAsError(profitabilityState)
@@ -137,15 +167,19 @@ internal class ProfitabilityView @JvmOverloads constructor(
     }
 
     fun showMoney() {
-        val profitabilityValue = data?.value.orEmpty()
+        val profitabilityValue = data?.current?.value.orEmpty()
 
         textViewProfitabilityValue.animateTextChange(profitabilityValue)
+        profitabilityHistoryList.showMoney()
 
         isAbleToShowMoney = true
     }
 
     fun hideMoney() {
-        textViewProfitabilityValue.animateTextChange(data?.value.orEmpty().hideMoney())
+        val profitabilityValue = data?.current?.value.orEmpty().hideMoney()
+
+        textViewProfitabilityValue.animateTextChange(profitabilityValue)
+        profitabilityHistoryList.hideMoney()
 
         isAbleToShowMoney = false
     }
