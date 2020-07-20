@@ -48,6 +48,7 @@ internal class ProfitabilityHistoryList @JvmOverloads constructor(
     }
 
     fun setupHistory(list: List<SummaryProfitabilityViewData>) {
+        removeAllViews()
         currentValues.clear()
         currentValues.addAll(list)
 

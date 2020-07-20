@@ -55,6 +55,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
     private fun showLoading() {
         updateConstraintSet(R.layout.layout_profitability_view_loading, AutoTransition())
         data = null
+        isExpanded = false
     }
 
     private fun updateConstraintSet(@LayoutRes constrainSetId: Int, transition: Transition) {
@@ -116,6 +117,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
         setupStateAsError(profitabilityState)
         updateConstraintSet(R.layout.layout_profitability_view_error, AutoTransition())
         data = null
+        isExpanded = false
     }
 
     private fun setupStateAsError(profitabilityError: ProfitabilityError) {
@@ -142,6 +144,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
         textViewMessage.text = profitabilityState.message
         updateConstraintSet(R.layout.layout_profitability_view_no_content, AutoTransition())
         data = null
+        isExpanded = false
     }
 
     fun setTransitionListener(animationListener: (Transition) -> Unit) {
