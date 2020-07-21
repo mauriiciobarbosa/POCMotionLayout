@@ -3,6 +3,7 @@ package com.mauricio.poc.position.components
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.transition.AutoTransition
+import android.transition.ChangeBounds
 import android.transition.Transition
 import android.util.AttributeSet
 import android.view.View
@@ -95,7 +96,18 @@ internal class ProfitabilityView @JvmOverloads constructor(
             )
         }
         profitabilityHistoryList.setupHistory(profitabilityData.history)
-        imageViewExpandable.setOnClickListener { toggleSuccessConstraintSet() }
+        imageViewExpandable.setOnClickListener {
+            if (isExpanded) {
+                val animator = createHistoryExitAnimator(
+                    textViewProfitabilityHistoryTitle, profitabilityHistoryList
+                ) {
+                    toggleSuccessConstraintSet()
+                }
+                animator.start()
+            } else {
+                toggleSuccessConstraintSet()
+            }
+        }
         data = profitabilityData
     }
 
@@ -108,15 +120,36 @@ internal class ProfitabilityView @JvmOverloads constructor(
         updateConstraintSet(constraintId, createOpenClosedTransition())
     }
 
-    private fun createOpenClosedTransition() = AutoTransition().apply {
-        interpolator = AccelerateDecelerateInterpolator()
-        doOnStart {
-            ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).start()
-            imageViewExpandable.isEnabled = false
-        }
-        doOnEnd {
-            imageViewExpandable.isEnabled = true
-            isExpanded = !isExpanded
+    private fun createOpenClosedTransition(): Transition {
+        return if (isExpanded) {
+            ChangeBounds().apply {
+                interpolator = AccelerateDecelerateInterpolator()
+
+                doOnStart {
+                    ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).start()
+                    imageViewExpandable.isEnabled = false
+                }
+                doOnEnd {
+                    imageViewExpandable.isEnabled = true
+                    isExpanded = !isExpanded
+                }
+            }
+        } else {
+            ChangeBounds().apply {
+                interpolator = AccelerateDecelerateInterpolator()
+
+                doOnStart {
+                    ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).start()
+                    imageViewExpandable.isEnabled = false
+                }
+                doOnEnd {
+                    createHistoryEnterAnimator(
+                        textViewProfitabilityHistoryTitle, profitabilityHistoryList
+                    ).start()
+                    imageViewExpandable.isEnabled = true
+                    isExpanded = !isExpanded
+                }
+            }
         }
     }
 

@@ -82,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
         android:text="@string/home_profitability_history_title"
+        android:alpha="0"
         app:layout_constraintStart_toEndOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/textViewProfitabilityDisclaimer" />
 
@@ -90,6 +91,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/smallest_margin"
+        android:alpha="0"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toEndOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/textViewProfitabilityHistoryTitle" />
