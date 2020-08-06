@@ -37,37 +37,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/patrimonyView" />
 
-            <com.mauricio.poc.position.components.OtherMenuView
-                android:id="@+id/otherMenuViewEasyAccount"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEngagementActions"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium_margin"
-                app:layout_constraintEnd_toStartOf="@+id/otherMenuViewInviteFriends"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profitabilityView"
-                app:other_menu_description="@string/home_menu_easy_account_description"
-                app:other_menu_icon="@drawable/ic_coin"
-                app:other_menu_title="@string/home_menu_easy_account" />
-
-            <com.mauricio.poc.position.components.OtherMenuView
-                android:id="@+id/otherMenuViewInviteFriends"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/otherMenuViewEasyAccount"
-                app:layout_constraintTop_toTopOf="@+id/otherMenuViewEasyAccount"
-                app:other_menu_description="@string/home_menu_invite_friends_description"
-                app:other_menu_icon="@drawable/ic_gift"
-                app:other_menu_isNew="true"
-                app:other_menu_title="@string/home_menu_invite_friends" />
+                tools:itemCount="1"
+                tools:listitem="@layout/layout_other_menu_view_small" />
 
             <View
                 android:id="@+id/gap"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/otherMenuViewEasyAccount" />
+                app:layout_constraintTop_toBottomOf="@+id/rvEngagementActions" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

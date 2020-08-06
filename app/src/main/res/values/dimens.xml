@@ -24,4 +24,5 @@
     <dimen name="home_illustration_size">100dp</dimen>
     <dimen name="home_patrimony_default_progress_state_height">240dp</dimen>
     <dimen name="home_profitability_history_percentage_min_width">62dp</dimen>
+    <dimen name="chip_start_ent_padding">12dp</dimen>
 </resources>

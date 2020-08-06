@@ -1,8 +1,10 @@
 package com.mauricio.poc.position.extensions
 
+import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.DimenRes
 import androidx.core.content.ContextCompat
 import com.mauricio.poc.position.R
 
@@ -42,3 +44,5 @@ fun View.isVisible(show: Boolean) {
         View.GONE
     }
 }
+
+fun Context.dpToPx(@DimenRes id: Int): Int = resources.getDimensionPixelSize(id)

@@ -17,4 +17,6 @@
     <string name="home_menu_easy_account_description">Dinheiro pra investir, resgatar e como depositar</string>
     <string name="home_menu_invite_friends">Indique e ganhe</string>
     <string name="home_menu_invite_friends_description">Indique a Easy e ganhe benefícios exclusivos</string>
+    <string name="home_menu_loan">Crédito</string>
+    <string name="home_menu_loan_description">Dinheiro na mão, sem precisar mexer nos investimentos</string>
 </resources>
