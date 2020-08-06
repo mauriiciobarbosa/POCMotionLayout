@@ -13,4 +13,8 @@
     <string name="home_see_profitability">Ver rentabilidade</string>
     <string name="home_profitability_disclaimer">Sua rentabilidade é calculada em até 2 dias úteis anteriores e seus investimentos só rendem nos dias úteis</string>
     <string name="home_profitability_history_title">Meses Anteriores</string>
+    <string name="home_menu_easy_account">Conta Easynvest</string>
+    <string name="home_menu_easy_account_description">Dinheiro pra investir, resgatar e como depositar</string>
+    <string name="home_menu_invite_friends">Indique e ganhe</string>
+    <string name="home_menu_invite_friends_description">Indique a Easy e ganhe benefícios exclusivos</string>
 </resources>

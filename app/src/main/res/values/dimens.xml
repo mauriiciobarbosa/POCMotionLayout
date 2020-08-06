@@ -9,6 +9,7 @@
     <dimen name="icon_small_size">16dp</dimen>
     <dimen name="home_bottom_gap">@dimen/medium_margin</dimen>
     <dimen name="home_other_menu_height">168dp</dimen>
+    <dimen name="home_other_menu_height_big">96dp</dimen>
     <dimen name="home_other_menu_width">120dp</dimen>
     <dimen name="home_other_menu_new_width">64dp</dimen>
     <dimen name="home_other_menu_new_height">48dp</dimen>

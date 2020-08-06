@@ -1,0 +1,59 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bgAction"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_other_menu"
+    android:minHeight="@dimen/home_other_menu_height_big">
+
+    <ImageView
+        android:id="@+id/imageViewAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:tint="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_coin" />
+
+    <TextView
+        android:id="@+id/textViewTitleAction"
+        style="@style/FontMedium.Paragraph2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:gravity="start|center_vertical"
+        android:maxLines="2"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewAction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAction"
+        app:layout_constraintTop_toTopOf="@+id/imageViewAction"
+        tools:text="Conta Easynvest" />
+
+    <TextView
+        android:id="@+id/textViewDescriptionAction"
+        style="@style/FontLight.Caption"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitleAction"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleAction"
+        tools:text="Dinheiro pra investir, resgatar e como depositar" />
+
+    <ImageView
+        android:id="@+id/imageViewTag"
+        android:layout_width="@dimen/home_other_menu_new_width"
+        android:layout_height="@dimen/home_other_menu_new_height"
+        android:background="@drawable/ic_new_tag_dark"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

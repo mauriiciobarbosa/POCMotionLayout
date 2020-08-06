@@ -37,54 +37,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/patrimonyView" />
 
+            <com.mauricio.poc.position.components.OtherMenuView
+                android:id="@+id/otherMenuViewEasyAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                app:layout_constraintEnd_toStartOf="@+id/otherMenuViewInviteFriends"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profitabilityView"
+                app:other_menu_description="@string/home_menu_easy_account_description"
+                app:other_menu_icon="@drawable/ic_coin"
+                app:other_menu_title="@string/home_menu_easy_account" />
+
+            <com.mauricio.poc.position.components.OtherMenuView
+                android:id="@+id/otherMenuViewInviteFriends"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/otherMenuViewEasyAccount"
+                app:layout_constraintTop_toTopOf="@+id/otherMenuViewEasyAccount"
+                app:other_menu_description="@string/home_menu_invite_friends_description"
+                app:other_menu_icon="@drawable/ic_gift"
+                app:other_menu_isNew="true"
+                app:other_menu_title="@string/home_menu_invite_friends" />
+
             <View
                 android:id="@+id/gap"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profitabilityView" />
+                app:layout_constraintTop_toBottomOf="@+id/otherMenuViewEasyAccount" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <Button
-        android:id="@+id/showHideButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:text="eye"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/showLoading"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/showLoading"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:text="loading"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/showError"
-        app:layout_constraintStart_toEndOf="@+id/showHideButton" />
-
-    <Button
-        android:id="@+id/showError"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:text="error"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/showSuccess"
-        app:layout_constraintStart_toEndOf="@+id/showLoading" />
-
-    <Button
-        android:id="@+id/showSuccess"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:text="success"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/showError" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="OtherMenuView">
+        <attr name="other_menu_icon" format="integer|reference" />
+        <attr name="other_menu_title" format="string" />
+        <attr name="other_menu_description" format="string" />
+        <attr name="other_menu_isNew" format="boolean" />
+    </declare-styleable>
+</resources>
