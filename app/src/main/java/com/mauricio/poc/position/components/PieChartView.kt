@@ -30,6 +30,7 @@ internal class PieChartView @JvmOverloads constructor(
     fun build(onValueSelected: ((Value?) -> Unit)? = null): PieChartView {
         this.onValueSelected = onValueSelected
         configureChart()
+        configureCenterText()
         setValuesIntoChart(createEntries())
         setOnChartValueSelectedListener(this)
         showAnimation()
@@ -114,7 +115,6 @@ internal class PieChartView @JvmOverloads constructor(
 
     fun showCenterText() {
         shouldShowCenterText = true
-        configureCenterText()
         updateCenterText()
     }
 
@@ -133,7 +133,7 @@ internal class PieChartView @JvmOverloads constructor(
     companion object {
         private const val GRAPH_FULL_PERCENTAGE = 100.0f
         private const val SIZE_FONT_CENTER = 18f
-        private const val ANIMATION_DURATION = 1400
+        private const val ANIMATION_DURATION = 600
         private const val DISTANCE_FROM_CENTER = 5F
         private const val HOLE_RADIUS = 60F
         private const val DEFAULT_GRAPH_COLOR = "#FFD8D8D8"

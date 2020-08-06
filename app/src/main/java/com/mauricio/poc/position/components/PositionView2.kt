@@ -5,6 +5,7 @@ import android.content.Context
 import android.transition.ArcMotion
 import android.transition.AutoTransition
 import android.transition.ChangeBounds
+import android.transition.Fade
 import android.transition.Transition
 import android.transition.TransitionSet
 import android.util.AttributeSet
@@ -83,13 +84,10 @@ internal class PositionView2 @JvmOverloads constructor(
             }
             isExpanded -> {
                 pieChartView?.setNoValueSelected()
-                R.layout.layout_position_view2_success_collapsed to createOpenClosedTransition(
-                    TOGGLE_ROTATE_END to TOGGLE_ROTATE_START
-                )
+                pieChartView?.hideCenterText()
+                R.layout.layout_position_view2_success_collapsed to createCloseTransition()
             }
-            else -> R.layout.layout_position_view2_success_expanded to createOpenClosedTransition(
-                TOGGLE_ROTATE_START to TOGGLE_ROTATE_END
-            )
+            else -> R.layout.layout_position_view2_success_expanded to createOpenTransition()
         }
 
         updateConstraintSet(constraintSet, transition)
@@ -105,7 +103,18 @@ internal class PositionView2 @JvmOverloads constructor(
         updateMoneyValues(this)
         setupPatrimonyChart(investmentTypes)
         updateSelectedInvestment(pieChartView?.selectedValue)
-        imageViewExpandable.setOnClickListener { toggleSuccessConstraintSet() }
+        imageViewExpandable.setOnClickListener { prepareToggleAnimation() }
+    }
+
+    private fun prepareToggleAnimation() {
+        imageViewExpandable.isEnabled = false
+        if (isExpanded) {
+            startExitAnimator(textViewInvestmentSelectedLabel, textViewInvestmentSelectedValue) {
+                toggleSuccessConstraintSet()
+            }
+        } else {
+            toggleSuccessConstraintSet()
+        }
     }
 
     private fun updateMoneyValues(position: PatrimonyViewData) = with(position) {
@@ -160,31 +169,40 @@ internal class PositionView2 @JvmOverloads constructor(
         animationListener?.invoke(transition)
     }
 
-    private fun createOpenClosedTransition(rotationValues: Pair<Float, Float>) =
-        TransitionSet().apply {
-            duration = ANIMATION_DURATION
-            interpolator = AccelerateDecelerateInterpolator()
-            addTransition(ChangeBounds())
-            pathMotion = ArcMotion()
-            doOnStart {
-                ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).apply {
-                    addUpdateListener { valueAnimator ->
-                        if (isExpanded.not() && valueAnimator.animatedFraction > 0.9) {
-                            pieChartView?.showCenterText()
-                        } else {
-                            pieChartView?.hideCenterText()
-                        }
-                    }
-                    duration = it.duration
-                }.start()
-                imageViewExpandable.isEnabled = false
-            }
-            doOnEnd {
+    private fun createCloseTransition(): Transition = TransitionSet().apply {
+        interpolator = AccelerateDecelerateInterpolator()
+        addTransition(ChangeBounds())
+        pathMotion = ArcMotion()
+        doOnStart {
+            imageViewExpandable.isEnabled = false
+            ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).start()
+        }
+        doOnEnd {
+            imageViewExpandable.isEnabled = true
+            isExpanded = !isExpanded
+            setSelectedInvestmentAsDefault()
+        }
+    }
+
+    private fun createOpenTransition(): Transition = TransitionSet().apply {
+        interpolator = AccelerateDecelerateInterpolator()
+        addTransition(ChangeBounds())
+        pathMotion = ArcMotion()
+        doOnStart {
+            ObjectAnimator.ofFloat(imageViewExpandable, View.ALPHA, 0f, 1f).apply {
+                addUpdateListener { valueAnimator ->
+                    if (valueAnimator.animatedFraction > 0.9) pieChartView?.showCenterText()
+                }
+            }.start()
+            imageViewExpandable.isEnabled = false
+        }
+        doOnEnd {
+            isExpanded = !isExpanded
+            startEnterAnimator(textViewInvestmentSelectedLabel, textViewInvestmentSelectedValue) {
                 imageViewExpandable.isEnabled = true
-                isExpanded = !isExpanded
-                if (isExpanded.not()) setSelectedInvestmentAsDefault()
             }
         }
+    }
 
     private fun showError(error: PatrimonyError) {
         setupStateAsError(error)

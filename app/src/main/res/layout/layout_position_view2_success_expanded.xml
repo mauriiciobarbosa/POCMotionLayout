@@ -54,6 +54,7 @@
         android:layout_marginTop="@dimen/small_margin"
         android:gravity="center_horizontal"
         android:text="@string/label_total_invested"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
         app:layout_constraintTop_toBottomOf="@+id/frameLayoutPatrimonyGraph" />
@@ -63,6 +64,7 @@
         style="@style/FontMedium.Paragraph1"
         android:layout_width="0dp"
         android:gravity="center_horizontal"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
         app:layout_constraintTop_toBottomOf="@+id/textViewInvestmentSelectedLabel"

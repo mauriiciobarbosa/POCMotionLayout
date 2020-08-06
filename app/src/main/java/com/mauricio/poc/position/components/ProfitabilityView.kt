@@ -98,12 +98,9 @@ internal class ProfitabilityView @JvmOverloads constructor(
         profitabilityHistoryList.setupHistory(profitabilityData.history)
         imageViewExpandable.setOnClickListener {
             if (isExpanded) {
-                val animator = createHistoryExitAnimator(
-                    textViewProfitabilityHistoryTitle, profitabilityHistoryList
-                ) {
+                startExitAnimator(textViewProfitabilityHistoryTitle, profitabilityHistoryList) {
                     toggleSuccessConstraintSet()
                 }
-                animator.start()
             } else {
                 toggleSuccessConstraintSet()
             }
@@ -143,9 +140,7 @@ internal class ProfitabilityView @JvmOverloads constructor(
                     imageViewExpandable.isEnabled = false
                 }
                 doOnEnd {
-                    createHistoryEnterAnimator(
-                        textViewProfitabilityHistoryTitle, profitabilityHistoryList
-                    ).start()
+                    startEnterAnimator(textViewProfitabilityHistoryTitle, profitabilityHistoryList)
                     imageViewExpandable.isEnabled = true
                     isExpanded = !isExpanded
                 }
